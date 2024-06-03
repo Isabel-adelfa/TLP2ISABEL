@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <div class="container">
+            <div class="form">
+                <form id="cadastro_form">
+                    <div class="form-header">
+                        <div class="title">
+                            <h1> CADASTRE-SE:</h1>
+                        </div>
+                       
+                        <div class="input-group">
+                            <div class="input-box">
+                                <label for="firstname"><br><br><br> <br> Primeiro Nome</label>
+                                <input id="pnome" type="text" name="pnome" id="pnome" placeholder="Digite o primeiro nome..." required > 
+                            </div>
+
+                            <div class="input-box">
+                                <label for="email"> Email</label>
+                                <input id="email" type="email" name="email" id="email" placeholder="Digite o seu email..." required > 
+                            </div>
+
+                            <div class="input-box">
+                                <label for="password"> Senha</label>
+                                <input id="senha" type="password" name="senha" id="senha" placeholder="Digite a senha.." required > 
+                            </div>
+                        </div>
+
+                        <div class="continue-button">
+                            <button id="send" type="submit"> continuar</button>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div> 
+
+        </div>
+
+<!--<SCript src="../../Public/JS/validacao.js"></SCript>-->
+<script>
+    const formCadastro = document.querySelector('#cadastro_form');
+
+    formCadastro.addEventListener('submit', async (e) => {
+        e.preventDefault()
+
+        let nom = document.querySelector('#cadastro_form #pnome');
+        let emai = document.querySelector('#cadastro_form #email');
+        let senh = document.querySelector('#cadastro_form #senha');
+
+        let response = await fetch('http://localhost:3939/usuarios', {
+            method: 'POST',
+            body: JSON.stringify({
+                nome: nom.value,
+                email: emai.value,
+                senha: senh.value
+            }), 
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+
+        let data = await response.json();
+
+        console.log(JSON.stringify({
+                nome: nom.value,
+                email: emai.value,
+                senha: senh
+            }))
+
+        if(response.status == 200){
+            nom.value = '';
+            emai.value = '';
+            senh.value = '';
+
+            localStorage.setItem('usuario_id', data.insertId);
+            window.location.href = 'index.html';
+
+            alert('cadastro feito com sucesso!')
+        }
+        
+    })
+
+</script>
+
+
+
+<style>
+body {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(2, 2, 73);
+}
+
+.container {
+width: 60%;
+height: 90vh;
+display: flex;
+box-shadow: 10px 10px 10px rgba(0, 0, 0, .212);
+}
+
+.form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(246, 246, 246, 0.974);
+    padding: 3.5rem;
+}
+
+.form-header {
+ margin-bottom: 0.3rem;
+ display: flex;
+ justify-content: space-between;
+}
+
+/*risco*/
+.form-header h1::after{
+    content: '';
+    display: block;
+    width: 10rem;
+    height: 0.4rem;
+    background-color: rgb(12, 84, 96);
+    margin: 0 auto;
+    position: absolute;
+    border-radius: 10px;
+}
+
+.input-group{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+.input-box{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.2rem;
+}
+
+.input-box input{
+    margin: 0.3rem 0;
+    padding: 0.9rem 1rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 3px 3px 9px #046969b5;
+}
+
+/* cor nos campos */
+.input-box input:hover{
+    background-color: #e5ddddef;
+}
+/* cor da borda quando escreve*/
+.input-box input:focus-visible{
+    outline: 1px solid #0c058c;
+}
+
+.input-box label,
+.gender-title h6{
+    font-size: 0.95rem ;
+    font-weight: 600;
+    color:black
+}
+
+.input-box input::placeholder{
+    color:black
+}
+
+.gender-group{
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+.continue-button button {
+    width: 100%;
+    margin-top: 23rem;
+    border: none;
+    background-color: rgb(7, 97, 113);
+    padding: 1.5rem;
+    border-radius: 15px;
+    cursor:pointer;
+}
+
+.continue-button button:hover{
+    background-color: rgba(3, 109, 105, 0.933);
+}
+
+.continue-button button a{
+    text-decoration: none;
+    font-size: 0.98rem;
+    font-weight: 800;
+    color: rgb(222, 216, 210);
+}
+
+</style>
+
+    
+</body>
+</html>

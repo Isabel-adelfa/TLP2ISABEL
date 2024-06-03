@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body  style="background-color:rgba(3, 2, 60, 0.988);">
+
+	    <div class="login-container">
+            <h1>Faça login</h1>
+
+            <form id="login-form">
+                <div class="form-header">
+                    <div class="title">
+                        <h1> Entrar:</h1>
+                    </div>
+                   
+                    <div class="input-group">
+
+                        <div class="input-box">
+                            <input id="email" type="email" name="email" id="email" placeholder="Digite o seu email..." required > 
+                        </div>
+
+                        <div class="input-box">
+                            <input id="senha" type="password" name="senha" id="senha" placeholder="Digite a senha.." required > 
+                        </div>
+                    </div>
+
+                    <div class="continue-button">
+                        <button id="send" type="submit"> continuar</button>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <style>
+            body {
+            font-family: Arial, sans-serif;
+            background-color: #030353fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #ffffff;
+             padding: 70px;
+             border-radius: 8px;
+             box-shadow: 0 2px 4px rgba(72, 138, 169, 0.603);
+              text-align: center;
+        }
+
+        input {
+             width: 80%;
+            padding: 20px;
+             margin-bottom: 20px;
+            border: 3px solid #1a4f5b81;
+             border-radius: 5px;
+        }
+
+        button {
+                background-color: #3a8b91ea;
+                color: #267c89de;
+                 border: none;
+                padding: 15px 25px;
+                 border-radius: 5px;
+                cursor: pointer;
+        }
+
+        button:hover {
+                 background-color: #168883;
+         }	
+      
+
+     </style>
+
+
+<script>
+    const formLogin = document.querySelector('#login-form');
+
+    formLogin.addEventListener('submit', async (e) => {
+        e.preventDefault()
+
+        let emai = document.querySelector('#login-form #email');
+        let senh = document.querySelector('#login-form #senha');
+
+
+        console.log(JSON.stringify({
+                email: emai.value,
+                senha: senh.value
+            }))
+
+        let response = await fetch('http://localhost:3939/usuarios/login', {
+            method: 'POST',
+            body: JSON.stringify({
+                email: emai.value,
+                senha: senh.value
+            }), 
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+
+        if(response.status == 200){
+            
+            emai.value = '';
+            senh.value = '';
+
+            let data = await response.json();
+            
+            localStorage.setItem('usuario_id', data)
+
+            alert('Login feito com sucesso!')
+
+            window.location.href = 'MEUPRO1.html';
+        }
+        
+    })
+
+</script>
+    </body>
+</html>

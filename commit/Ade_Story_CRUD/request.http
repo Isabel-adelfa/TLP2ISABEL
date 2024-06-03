@@ -1,0 +1,98 @@
+
+GET http://localhost:3939/usuarios
+
+###
+
+PUT http://localhost:3939/usuarios/1
+Content-Type: application/json
+
+{
+    "nome":"joana",
+    "email":"adilioneto@gmail.com",
+    "senha":"u3u3"
+}
+
+###
+
+POST http://localhost:3939/iserircad
+Content-Type: application/json
+
+{
+    "pnome":"reginaldo",
+    "unome":"angolar",
+    "email":"regnaldoangolar@gmail.com",
+    "senha":"1r1i1q",
+    "confsenha":"1r1i1q"
+}
+
+
+###
+
+POST http://localhost:3939/iserirplay
+Content-Type: application/json
+
+{
+   "pnome":"desejo",
+   "genero":"auto_ajuda"
+}
+
+
+
+###
+
+PUT http://localhost:3939/atualizarlog/5
+Content-Type: application/json
+
+{
+    "novopnome": "paul",
+    "password":"8s5t6"
+}
+
+
+
+###
+
+PUT http://localhost:3939/atualizarcad/4
+Content-Type: application/json
+
+{
+    
+    "pnome":"arnaldo",
+    "unome":"miguel",
+    "email":"arnaldomiguel@gmail.com",
+    "senha":"8a8i8m",
+    "confsenha":"8a8i8m"
+}
+
+###
+
+PUT http://localhost:3939/atualizarplay/3
+Content-Type: application/json
+
+{
+   "pnome":"ternura",
+   "genero":"romance"
+}
+
+
+
+###
+
+DELETE http://localhost:3939/usuarios/1
+
+
+
+###
+
+
+POST http://localhost:3939/formulario
+Content-Type: application/json
+
+{
+    "pnome":"isabel",
+    "unome":"del",
+     "email":"isabeldel@gmail.com",
+    "senha":"e3e2",
+    "confsenha":"e3e2"
+}
+
